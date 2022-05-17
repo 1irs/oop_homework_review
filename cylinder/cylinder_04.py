@@ -1,34 +1,40 @@
 from dataclasses import dataclass
 from math import pi
+from typing import Optional
+from tabulate import tabulate
 
 
 @dataclass
 class Cylinder:
     # Радиус сечения
-    r: float
+    radius: float
     # Высота цилиндра
-    l: float
+    height: float
 
     def check_cylinder_dimensions(self) -> bool:
         # Метод, проверяющий корректно ли задан цилиндр, а именно: радиус > 0, высота > 0.
-        return self.r > 0 and self.l > 0
+        return self.radius > 0 and self.height > 0
 
-    def get_cylinder_volume(self) -> float:
+    def get_cylinder_volume(self) -> Optional[float]:
         # Метод, вычисляющий объем цилиндра.
-        if self.check_cylinder_dimensions() is True:
-            volume = pi * (self.r ** 2) * self.l
+        if self.check_cylinder_dimensions():
+            volume = pi * (self.radius ** 2) * self.height
             return round(volume, 2)
 
 
 @dataclass
 class CylinderDimensions:
+    """Хранилище цилиндров"""
     dimensions: list[Cylinder]
 
     def print_radius_height_volume(self) -> None:
         # Метод, печатающий на экран свойства цилиндра: радиус, высоту, объем.
-        print('Radius | Height | Cylinder Volume')
+        #print('Radius | Height | Cylinder Volume')
+        rows = []
         for dimension in self.dimensions:
-            print(dimension.r, '|', dimension.l, '|', dimension.get_cylinder_volume())
+            rows.append([dimension.radius, dimension.height, dimension.get_cylinder_volume()])
+
+        print(tabulate(rows, headers=['Radius', 'Height', 'Cylinder Volume'], tablefmt="grid"))
 
 
 dimension1 = Cylinder(1, 2)
@@ -40,3 +46,4 @@ cylinder_dimensions: list[Cylinder] = [dimension1, dimension2, dimension3, dimen
                                        dimension5]
 cylinder_dimensions1 = CylinderDimensions(cylinder_dimensions)
 cylinder_dimensions1.print_radius_height_volume()
+

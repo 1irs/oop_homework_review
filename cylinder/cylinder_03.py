@@ -3,7 +3,7 @@ import numpy
 from dataclasses import dataclass
 
 @dataclass
-class cylindrer:
+class Cylinder:
     """Радиус сечения"""
     sec_radius: float
 
@@ -32,11 +32,11 @@ class cylindrer:
         if self.is_it_cylinder():
             return print(f"Radius: {self.sec_radius}, height: {self.height}, volume: {self.volume()}")
 
-cyl1 = cylindrer(5, 10)
-cyl2 = cylindrer(-1, 10)
-cyl3 = cylindrer(10, -5)
-cyl4 = cylindrer(-5, 0)
-cyl5 = cylindrer(math.pi, numpy.pi)
+cyl1 = Cylinder(5, 10)
+cyl2 = Cylinder(-1, 10)
+cyl3 = Cylinder(10, -5)
+cyl4 = Cylinder(-5, 0)
+cyl5 = Cylinder(math.pi, numpy.pi)
 
 cyl1.print_cyl()
 cyl2.print_cyl()

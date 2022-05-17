@@ -17,7 +17,7 @@ class Product:
 
 
 @dataclass
-class korzina:
+class Korzina:
     products: list[Product]
 
     def prod_to_korz(self,dobavl: Product):
@@ -46,13 +46,13 @@ class korzina:
 
 
     def skidka_prod(self) -> float:
-        skidka:float = 0.0
+        skidka: float = 0.0
         all_price_prod = self.all_sum_korz()
         kolvo_prod = len(self.products)
         if kolvo_prod > 10:
             skidka = all_price_prod * 0.03
-            if  all_price_prod > 100:
-                skidka = skidka + 5
+        if all_price_prod > 100:
+            skidka = skidka + 5
         print (f"Скидка составила {skidka} y.e.")
         return skidka
 
@@ -85,9 +85,9 @@ product1.print_info_prod()
 product2.print_info_prod()
 product3.print_info_prod()
 
-korzina1 = korzina([product1,product2,product3,product1,product2,product3, product1,product2,product3, product1,product2,product3])
+korzina1 = Korzina([product1, product2, product3, product1, product2, product3, product1, product2, product3, product1, product2, product3])
 korzina1.prod_to_korz(product3)
-korzina1.razlich_prod_korz()
+len(korzina1.razlich_prod_korz())
 korzina1.all_sum_korz()
 
 

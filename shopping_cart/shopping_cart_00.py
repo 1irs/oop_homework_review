@@ -16,17 +16,19 @@ class Product:
 
     def product_info(self) -> None:
         print(f"Имя товара={self.name}\n"
-              f"Цена товара={self.unit_price}")
+              f"Количество={self.quantity}"
+              f"Цена товара={self.unit_price}"
+              )
 
 
 @dataclass()
-class Shopping_Cart:
+class ShoppingCart:
     cart = {}
 
     """Добавление в корзину"""
 
-    def add_to_shopping_cart(self) -> None:
-        self.cart[Product.name] = Product.unit_price * Product.quantity
+    def add_to_shopping_cart(self, product: Product) -> None:
+        self.cart[product.name] = product.total()
 
     """Очистка корзины"""
 
@@ -36,17 +38,22 @@ class Shopping_Cart:
     """Подсчет количества разных товаров в корзине"""
 
     def items_in_the_cart(self) -> int:
-        counter = 0
-        for Product.name in self.cart.items():
-            counter += 1
-        return counter
+        return len(self.cart)
 
     """Вычисление стоимости товаров в корзине"""
 
-    def total_shopping_cart(self) -> float:
+    def total_shopping_cart_wo_discount(self) -> float:
         return sum(self.cart.values())
 
     """Если товаров больше 10, то применяется скидка 3%"""
+
+    def total_shopping_cart_w_discount(self) -> float:
+        final_price = self.total_shopping_cart_wo_discount()
+        if self.items_in_the_cart() > 10:
+            final_price *= 0.97
+        if self.total_shopping_cart_wo_discount() > 100.0:
+            final_price -= 5.0
+        return final_price
 
     def discount_3(self) -> float:
         counter = 0
@@ -67,7 +74,7 @@ class Shopping_Cart:
 
     def info_total_shopping_cart(self) -> None:
         print(self.cart)
-        print(self.total_shopping_cart())
+        print(self.total_shopping_cart_wo_discount())
         print(self.discount_3())
         print(self.discount_5())
 

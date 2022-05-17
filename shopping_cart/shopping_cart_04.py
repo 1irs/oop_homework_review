@@ -11,23 +11,23 @@ class Product:
         return f"{self.name}\t\t\t\t\t{self.price} \t{self.count} \t\t== {self.sum()}"
 
 
-class Chart(Product):
+class Chart:
     def __init__(self) -> None:
-        self.chart: list[Product] = []
+        self.cart: list[Product] = []
         self.total_amount_without_discount: float = 0.0
         self.total_amount_with_discount: float = 0.0
         self.unique: int = 0
 
     def add(self, product: Product) -> None:
-        self.chart.append(product)
+        self.cart.append(product)
 
     def calculate_different(self) -> None:
-        temp: list[str] = [item.name for item in self.chart]
-        self.unique = len(list(set(temp)))
+        temp: list[str] = [item.name for item in self.cart]
+        self.unique = len(set(temp))
 
     def calculate_chart_sum(self) -> [float, float]:
-        for item in self.chart:
-            self.total_amount_without_discount += item.price * item.count
+        for item in self.cart:
+            self.total_amount_without_discount += item.sum()
         self.total_amount_with_discount = self.total_amount_without_discount
 
         self.calculate_different()
@@ -37,11 +37,11 @@ class Chart(Product):
         if self.total_amount_without_discount > 100.00:
             self.total_amount_with_discount = self.total_amount_with_discount - 5.00
 
-        return [self.total_amount_without_discount, self.total_amount_with_discount]
+        return self.total_amount_without_discount, self.total_amount_with_discount
 
     def info(self) -> None:
         print("Product\t\t\t\t\tPrice \tCount \tSum")
-        for item in self.chart:
+        for item in self.cart:
             print(f"{item.info()}")
         self.calculate_chart_sum()
         print(f"----------------------------------------------------\n"
@@ -49,13 +49,13 @@ class Chart(Product):
               f"Total amount with discount \t {self.total_amount_with_discount}\n")
 
     def most_expensive(self) -> None:
-        prices = [item.price for item in self.chart]
+        prices = [item.price for item in self.cart]
         print(f"The most expensive product is  {max(prices)}")
 
 
 if __name__ == '__main__':
 
-    chase: list[Product] = {
+    chase: list[Product] = [
         Product(name="Book", price=100.00, count=1),
         Product(name="Shirt", price=100.00, count=4),
         Product(name="Coat", price=200.00, count=1),
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         Product(name="Crew", price=100.00, count=1),
         Product(name="Jacket", price=100.00, count=1),
         Product(name="Jersey", price=200.00, count=4)
-    }
+    ]
 
     chart = Chart()
     for item in chase:

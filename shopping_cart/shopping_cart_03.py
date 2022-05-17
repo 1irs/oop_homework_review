@@ -25,8 +25,8 @@ class Cart:
     cost_with_discounts: float = 0.0 # стоимость продуктов со скидками
 
     # метод добавления продукта в корзину
-    def add_product(self, Product):
-        self.product_items.append(Product)
+    def add_product(self, product: Product):
+        self.product_items.append(product)
         self.get_total()
 
     # метод очистки корзины
@@ -84,4 +84,4 @@ class Cart:
         elif len(most_expensive) > 1:
             print('Самые дорогие товары в корзине: ' + ", ".join(most_expensive))
         else:
-            print(f'Самый дорогой товар в корзине: ' + ", ".join(most_expensive))
+            print(f'Самый дорогой товар в корзине: ' + most_expensive[0])

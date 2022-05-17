@@ -78,8 +78,8 @@ class Cart:
         if self.different_prod_qnty() > 10:
             amount *= 0.97
             amount = round(amount, 2)
-        if amount > 100:
-            amount -= 5
+        if amount > 100.0:
+            amount -= 5.0
         self.total_with_discount = amount
         # return
 
